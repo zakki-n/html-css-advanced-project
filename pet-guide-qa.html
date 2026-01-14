@@ -480,21 +480,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.querySelectorAll('.helpful-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                if (this.innerHTML.includes('参考になった')) {
-                    this.innerHTML = '<i class="bi bi-hand-thumbs-up-fill"></i> 参考になりました';
-                    this.style.background = 'var(--primary-color)';
-                    this.style.color = 'white';
-                } else {
-                    this.innerHTML = '<i class="bi bi-hand-thumbs-up"></i> 参考になった';
-                    this.style.background = 'transparent';
-                    this.style.color = 'var(--primary-color)';
-                }
-            });
-        });
-    </script>
+<script src="js/main.js"></script>
 </body>
-
 </html>
