@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規登録 - Metropolis Bites</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-buildings-fill text-warning"></i> Metropolis Bites
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">ホーム</a></li>
+                    <li class="nav-item"><a class="nav-link" href="shop-list.html">店舗一覧</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gourmet-guide.html">グルメコラム</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gourmet-qa.html">Q&A</a></li>
+                    <li class="nav-item"><a class="nav-link" href="eating-log.html">食べ歩きログ</a></li>
+                </ul>
+                <a href="login.html" class="btn btn-outline-primary ms-3 fw-bold">ログイン</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="auth-card mt-5">
+            <h3 class="text-center fw-bold mb-4">新規アカウント登録</h3>
+            <form>
+                <div class="mb-3">
+                    <label for="name" class="form-label">お名前</label>
+                    <input type="text" class="form-control" id="name" placeholder="山田 太郎">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">メールアドレス</label>
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">パスワード</label>
+                    <input type="password" class="form-control" id="password">
+                </div>
+                <div class="mb-3">
+                    <label for="confirm-password" class="form-label">パスワード（確認）</label>
+                    <input type="password" class="form-control" id="confirm-password">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="terms">
+                    <label class="form-check-label" for="terms"><a href="#">利用規約</a>に同意する</label>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary-custom">登録する</button>
+                </div>
+            </form>
+            <div class="text-center mt-4">
+                <p class="small text-muted">すでにアカウントをお持ちの方は <a href="login.html">ログイン</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="fw-bold mb-3 text-white">
+                        <i class="bi bi-buildings-fill text-warning"></i> Metropolis Bites
+                    </h5>
+                    <p>都会の隠れ家グルメガイド。<br>あなただけのお気に入りを見つけてください。</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="fw-bold mb-3 text-white">サイト情報</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">About</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">利用規約</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">プライバシー</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="fw-bold mb-3 text-white">サポート</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">ヘルプ</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">お問い合わせ</a></li>
+                        <li><a href="gourmet-qa.html" class="text-decoration-none text-secondary hover-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h6 class="fw-bold mb-3 text-white">フォローする</h6>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-secondary fs-4 hover-white"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-secondary fs-4 hover-white"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-secondary fs-4 hover-white"><i class="bi bi-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <p class="text-center mb-0 text-secondary">&copy; 2026 Metropolis Bites. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
