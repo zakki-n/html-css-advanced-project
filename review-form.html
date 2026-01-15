@@ -1,841 +1,307 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetLife - 飼育記録を投稿</title>
+    <title>口コミ投稿 - Metropolis Bites</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
         .page-header {
-            background: linear-gradient(135deg, #dcfce7 0%, #fed7aa 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
             padding: 60px 0;
             border-radius: 0 0 50px 50px;
             margin-bottom: 40px;
+            color: white;
         }
-
-        .form-container {
+        
+        .form-card {
             background: white;
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-
-        .form-section {
-            margin-bottom: 35px;
-            padding-bottom: 35px;
-            border-bottom: 2px solid #f3f4f6;
-        }
-
-        .form-section:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .section-title {
-            color: var(--brown-color);
-            font-weight: 700;
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title i {
-            color: var(--primary-color);
-        }
-
-        .form-label {
-            font-weight: 600;
-            color: var(--brown-color);
-            margin-bottom: 8px;
-        }
-
-        .required-mark {
-            color: #ef4444;
-            margin-left: 3px;
-        }
-
-        .form-control,
-        .form-select {
-            border: 2px solid #e5e7eb;
             border-radius: 15px;
-            padding: 12px 18px;
-            transition: all 0.3s ease;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .form-control:focus,
-        .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.15);
-        }
-
-        .form-control::placeholder {
-            color: #9ca3af;
-        }
-
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .category-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-
-        .category-option {
-            position: relative;
-        }
-
-        .category-option input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-        }
-
-        .category-label {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            border: 2px solid #e5e7eb;
-            border-radius: 20px;
+        .rating-option {
             cursor: pointer;
-            transition: all 0.3s ease;
-            background: white;
-            text-align: center;
-        }
-
-        .category-label i {
-            font-size: 2.5rem;
+            padding: 10px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            margin-right: 10px;
             margin-bottom: 10px;
+            display: inline-block;
+            transition: all 0.2s;
+            font-weight: bold;
+            color: #d1d5db; /* default gray for stars */
+            font-size: 1.2rem;
         }
 
-        .category-label:hover {
-            border-color: var(--primary-color);
-            background: rgba(16, 185, 129, 0.05);
+        .rating-option.active {
+            border-color: var(--secondary-color);
+            background: #fffbeb;
+            color: var(--secondary-color);
         }
 
-        .category-option input[type="radio"]:checked+.category-label {
-            border-color: var(--primary-color);
-            background: linear-gradient(135deg, #dcfce7, #fed7aa);
-            font-weight: 700;
+        .rating-option:hover {
+            border-color: var(--secondary-color);
         }
 
         .file-upload-area {
             border: 2px dashed #e5e7eb;
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 40px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
             background: #fafafa;
         }
 
         .file-upload-area:hover {
-            border-color: var(--primary-color);
-            background: rgba(16, 185, 129, 0.05);
-        }
-
-        .file-upload-area i {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-
-        .upload-text {
-            color: var(--brown-color);
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .upload-hint {
-            color: #9ca3af;
-            font-size: 0.9rem;
-        }
-
-        .image-preview-container {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 20px;
+            border-color: var(--secondary-color);
+            background: #fffbeb;
         }
 
         .image-preview {
             position: relative;
-            width: 120px;
-            height: 120px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            margin: 10px;
         }
 
         .image-preview img {
-            width: 100%;
-            height: 100%;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
+            border-radius: 10px;
         }
 
-        .image-preview .remove-btn {
+        .remove-btn {
             position: absolute;
-            top: 5px;
-            right: 5px;
-            background: rgba(239, 68, 68, 0.9);
+            top: -5px;
+            right: -5px;
+            background: red;
             color: white;
             border: none;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
 
-        .image-preview .remove-btn:hover {
-            background: #dc2626;
-        }
-
-        .date-input-group {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .date-input-group input {
-            flex: 1;
-        }
-
-        .quick-date-btn {
-            padding: 10px 20px;
-            border: 2px solid var(--primary-color);
-            background: white;
-            color: var(--primary-color);
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .quick-date-btn:hover {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            color: white;
-            padding: 15px 50px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-draft {
-            background: white;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 15px 50px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .btn-draft:hover {
-            background: rgba(16, 185, 129, 0.1);
-        }
-
-        .help-text {
-            color: #6b7280;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        .info-card {
-            background: linear-gradient(135deg, #dcfce7, #fed7aa);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-
-        .info-card-title {
-            font-weight: 700;
-            color: var(--brown-color);
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .info-card ul {
-            margin-bottom: 0;
-            padding-left: 20px;
-        }
-
-        .info-card li {
-            color: var(--brown-color);
-            margin-bottom: 8px;
-        }
-
-        footer {
-            background-color: var(--brown-color);
-            color: white;
-            padding: 40px 0;
-            margin-top: 80px;
-            border-radius: 50px 50px 0 0;
-        }
-
-        /* Toast通知スタイル */
-        .toast-container {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            z-index: 9999;
-        }
-
-        .toast-custom {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: none;
-            min-width: 350px;
-        }
-
-        .toast-custom .toast-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border-radius: 20px 20px 0 0;
-            border: none;
-            padding: 15px 20px;
-        }
-
-        .toast-custom .toast-body {
-            padding: 20px;
-            color: var(--brown-color);
-        }
-
-        .mood-selector {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .mood-option {
-            cursor: pointer;
-            font-size: 2.5rem;
-            opacity: 0.3;
-            transition: all 0.3s ease;
-        }
-
-        .mood-option:hover,
-        .mood-option.active {
-            opacity: 1;
-            transform: scale(1.2);
-        }
-
-        .tag-input-container {
+        .tag-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
+            margin-top: 10px;
             padding: 10px;
-            border: 2px solid #e5e7eb;
-            border-radius: 15px;
-            min-height: 50px;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            min-height: 48px;
         }
 
         .tag-item {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             color: white;
-            padding: 6px 15px;
-            border-radius: 50px;
+            padding: 5px 15px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
             font-size: 0.9rem;
-            font-weight: 600;
         }
 
-        .tag-item .remove-tag {
+        .remove-tag {
+            margin-left: 8px;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-        }
-
-        .tag-item .remove-tag:hover {
-            background: rgba(255, 255, 255, 0.5);
         }
 
         .tag-input-field {
-            flex: 1;
             border: none;
             outline: none;
-            min-width: 100px;
-            padding: 5px;
-        }
-
-        .suggested-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
-        .suggested-tag {
-            background: white;
-            border: 2px solid #e5e7eb;
-            color: var(--brown-color);
-            padding: 5px 12px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .suggested-tag:hover {
-            border-color: var(--primary-color);
-            background: rgba(16, 185, 129, 0.1);
+            flex-grow: 1;
+            min-width: 150px;
         }
     </style>
 </head>
-
 <body>
-    <!-- ナビゲーションバー -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="bi bi-heart-fill text-danger"></i> PetLife
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-buildings-fill text-warning"></i> Metropolis Bites
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">ホーム</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">ペット図鑑</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">飼い方ガイド</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Q&A</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">飼育記録</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">ホーム</a></li>
+                    <li class="nav-item"><a class="nav-link" href="shop-list.html">店舗一覧</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gourmet-guide.html">グルメコラム</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gourmet-qa.html">Q&A</a></li>
+                    <li class="nav-item"><a class="nav-link" href="eating-log.html">食べ歩きログ</a></li>
                 </ul>
-                <button class="btn btn-outline-success ms-3 rounded-pill fw-bold">
-                    <i class="bi bi-person-circle"></i> ログイン
-                </button>
+                <a href="login.html" class="btn btn-outline-primary ms-3 fw-bold">ログイン</a>
             </div>
         </div>
     </nav>
 
-    <!-- ページヘッダー -->
     <div class="page-header">
         <div class="container">
-            <div class="text-center">
-                <h1 class="display-4 fw-bold mb-3" style="color: var(--brown-color);">
-                    <i class="bi bi-pencil-square"></i> 飼育記録を投稿
-                </h1>
-                <p class="lead" style="color: var(--brown-color);">
-                    今日のペットの様子を記録しましょう
-                </p>
-            </div>
+            <h1 class="display-4 fw-bold mb-3"><i class="bi bi-pencil-square"></i> 口コミ投稿</h1>
+            <p class="lead" style="color: #bfdbfe;">あなたの感動をシェアしよう</p>
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <!-- フォーム -->
+    <div class="container pb-5">
+        <div class="row justify-content-center">
             <div class="col-lg-8">
-                <div class="form-container">
-                    <form id="recordForm">
-                        <!-- 基本情報 -->
-                        <div class="form-section">
-                            <h3 class="section-title">
-                                <i class="bi bi-info-circle-fill"></i>
-                                基本情報
-                            </h3>
-
-                            <div class="mb-4">
-                                <label class="form-label">ペットを選択<span class="required-mark">*</span></label>
-                                <select class="form-select" required>
-                                    <option value="">選択してください</option>
-                                    <option value="moca" selected>モカ（柴犬・♀）</option>
-                                    <option value="maru">マル（アメリカンショートヘア・♂）</option>
-                                    <option value="hana">ハナ（ミニチュアダックス・♀）</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-4">
-                                <label class="form-label">記録日時<span class="required-mark">*</span></label>
-                                <div class="date-input-group">
-                                    <input type="datetime-local" class="form-control" id="recordDate" required>
-                                    <button type="button" class="quick-date-btn" onclick="setToday()">
-                                        <i class="bi bi-calendar-check"></i> 今日
-                                    </button>
-                                </div>
-                                <div class="help-text">
-                                    <i class="bi bi-info-circle"></i> 記録した日時を入力してください
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <label class="form-label">記録カテゴリ<span class="required-mark">*</span></label>
-                                <div class="category-options">
-                                    <div class="category-option">
-                                        <input type="radio" name="category" id="cat-checkup" value="checkup" required>
-                                        <label for="cat-checkup" class="category-label">
-                                            <i class="bi bi-hospital" style="color: #3b82f6;"></i>
-                                            <span>健康診断</span>
-                                        </label>
-                                    </div>
-                                    <div class="category-option">
-                                        <input type="radio" name="category" id="cat-vaccine" value="vaccine">
-                                        <label for="cat-vaccine" class="category-label">
-                                            <i class="bi bi-shield-check" style="color: #f59e0b;"></i>
-                                            <span>ワクチン</span>
-                                        </label>
-                                    </div>
-                                    <div class="category-option">
-                                        <input type="radio" name="category" id="cat-weight" value="weight">
-                                        <label for="cat-weight" class="category-label">
-                                            <i class="bi bi-speedometer2" style="color: #10b981;"></i>
-                                            <span>体重測定</span>
-                                        </label>
-                                    </div>
-                                    <div class="category-option">
-                                        <input type="radio" name="category" id="cat-medication" value="medication">
-                                        <label for="cat-medication" class="category-label">
-                                            <i class="bi bi-capsule" style="color: #ec4899;"></i>
-                                            <span>投薬</span>
-                                        </label>
-                                    </div>
-                                    <div class="category-option">
-                                        <input type="radio" name="category" id="cat-daily" value="daily">
-                                        <label for="cat-daily" class="category-label">
-                                            <i class="bi bi-sun" style="color: #fb923c;"></i>
-                                            <span>日常記録</span>
-                                        </label>
-                                    </div>
-                                    <div class="category-option">
-                                        <input type="radio" name="category" id="cat-other" value="other">
-                                        <label for="cat-other" class="category-label">
-                                            <i class="bi bi-three-dots" style="color: #6b7280;"></i>
-                                            <span>その他</span>
-                                        </label>
-                                    </div>
-                                </div>
+                <div class="form-card">
+                    <form id="recordForm" class="needs-validation" novalidate>
+                        <!-- 店名 -->
+                        <div class="mb-4">
+                            <label for="shopName" class="form-label fw-bold">店名 <span class="badge bg-danger">必須</span></label>
+                            <input type="text" class="form-control form-control-lg" id="shopName" placeholder="例：Bistro Le Coin" required>
+                            <div class="invalid-feedback">
+                                店名を入力してください。
                             </div>
                         </div>
 
-                        <!-- 記録内容 -->
-                        <div class="form-section">
-                            <h3 class="section-title">
-                                <i class="bi bi-chat-left-text-fill"></i>
-                                記録内容
-                            </h3>
+                        <!-- 訪問日 -->
+                        <div class="mb-4">
+                            <label for="date" class="form-label fw-bold">訪問日 <span class="badge bg-danger">必須</span></label>
+                            <input type="date" class="form-control" id="date" required>
+                        </div>
 
-                            <div class="mb-4">
-                                <label class="form-label">タイトル<span class="required-mark">*</span></label>
-                                <input type="text" class="form-control" placeholder="例：定期健康診断、朝の散歩" required>
-                                <div class="help-text">
-                                    <i class="bi bi-lightbulb"></i> 簡潔でわかりやすいタイトルをつけましょう
-                                </div>
+                        <!-- 評価 -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold d-block">評価 <span class="badge bg-danger">必須</span></label>
+                            <div class="rating-options">
+                                <div class="rating-option" data-rating="5">★★★★★</div>
+                                <div class="rating-option" data-rating="4">★★★★</div>
+                                <div class="rating-option" data-rating="3">★★★</div>
+                                <div class="rating-option" data-rating="2">★★</div>
+                                <div class="rating-option" data-rating="1">★</div>
                             </div>
+                            <input type="hidden" id="selectedRating" required>
+                        </div>
 
-                            <div class="mb-4">
-                                <label class="form-label">詳細内容<span class="required-mark">*</span></label>
-                                <textarea class="form-control" placeholder="今日のペットの様子や気づいたことを記録してください..."
-                                    required></textarea>
-                                <div class="help-text">
-                                    <i class="bi bi-chat-quote"></i> 健康状態、行動、食事、気づいたことなどを詳しく記録しましょう
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <label class="form-label">ペットの気分</label>
-                                <div class="mood-selector">
-                                    <span class="mood-option" data-mood="very-happy" title="とても元気">😄</span>
-                                    <span class="mood-option" data-mood="happy" title="元気">😊</span>
-                                    <span class="mood-option active" data-mood="normal" title="普通">😐</span>
-                                    <span class="mood-option" data-mood="tired" title="疲れ気味">😔</span>
-                                    <span class="mood-option" data-mood="sick" title="体調不良">😷</span>
-                                </div>
-                                <div class="help-text text-center mt-2">
-                                    クリックしてペットの気分を選択
-                                </div>
+                        <!-- コメント -->
+                        <div class="mb-4">
+                            <label for="comment" class="form-label fw-bold">コメント <span class="badge bg-danger">必須</span></label>
+                            <textarea class="form-control" id="comment" rows="5" placeholder="お店の雰囲気や料理の感想を教えてください" required></textarea>
+                            <div class="invalid-feedback">
+                                コメントを入力してください。
                             </div>
                         </div>
 
-                        <!-- 測定値 -->
-                        <div class="form-section">
-                            <h3 class="section-title">
-                                <i class="bi bi-graph-up-arrow"></i>
-                                測定値（任意）
-                            </h3>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label">体重</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="8.5" step="0.1">
-                                        <span class="input-group-text">kg</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label">体温</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="38.5" step="0.1">
-                                        <span class="input-group-text">℃</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label">水分摂取量</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="750">
-                                        <span class="input-group-text">ml</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <label class="form-label">運動量（歩数）</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="8500">
-                                        <span class="input-group-text">歩</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 写真アップロード -->
-                        <div class="form-section">
-                            <h3 class="section-title">
-                                <i class="bi bi-images"></i>
-                                写真を追加（任意）
-                            </h3>
-
+                        <!-- 写真 -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">写真アップロード</label>
                             <div class="file-upload-area" onclick="document.getElementById('fileInput').click()">
-                                <i class="bi bi-cloud-upload"></i>
-                                <div class="upload-text">クリックまたはドラッグ&ドロップで写真を追加</div>
-                                <div class="upload-hint">PNG, JPG, GIF（最大5MB、最大10枚まで）</div>
-                                <input type="file" id="fileInput" multiple accept="image/*" style="display: none;"
-                                    onchange="previewImages(event)">
+                                <i class="bi bi-cloud-arrow-up display-4 text-muted mb-3"></i>
+                                <h5 class="fw-bold text-muted">クリックまたはドラッグ&ドロップで画像をアップロード</h5>
+                                <p class="text-muted small mb-0">最大10枚まで (JPEG, PNG)</p>
+                                <input type="file" id="fileInput" multiple accept="image/*" style="display: none;" onchange="previewImages(event)">
                             </div>
-
-                            <div class="image-preview-container" id="imagePreviewContainer">
-                                <!-- プレビュー画像がここに表示されます -->
-                            </div>
+                            <div id="imagePreviewContainer" class="mt-3"></div>
                         </div>
 
                         <!-- タグ -->
-                        <div class="form-section">
-                            <h3 class="section-title">
-                                <i class="bi bi-tags-fill"></i>
-                                タグ（任意）
-                            </h3>
-
-                            <div class="mb-3">
-                                <label class="form-label">タグを追加</label>
-                                <div class="tag-input-container" id="tagContainer">
-                                    <input type="text" class="tag-input-field" id="tagInput" placeholder="タグを入力してEnter">
-                                </div>
-                                <div class="help-text">
-                                    <i class="bi bi-info-circle"></i> Enterキーでタグを追加できます
-                                </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">タグ</label>
+                            <div class="tag-container" id="tagContainer">
+                                <input type="text" class="tag-input-field" id="tagInput" placeholder="タグを入力してEnter (例: #ランチ #デート)">
                             </div>
-
-                            <div>
-                                <label class="form-label">おすすめタグ</label>
-                                <div class="suggested-tags">
-                                    <span class="suggested-tag" onclick="addTag('散歩')">#散歩</span>
-                                    <span class="suggested-tag" onclick="addTag('食事')">#食事</span>
-                                    <span class="suggested-tag" onclick="addTag('遊び')">#遊び</span>
-                                    <span class="suggested-tag" onclick="addTag('しつけ')">#しつけ</span>
-                                    <span class="suggested-tag" onclick="addTag('健康')">#健康</span>
-                                    <span class="suggested-tag" onclick="addTag('成長')">#成長</span>
-                                </div>
-                            </div>
+                            <div class="form-text">Enterキーでタグを追加できます。</div>
                         </div>
 
-                        <!-- ボタン -->
-                        <div class="text-center mt-4">
-                            <div class="d-flex gap-3 justify-content-center flex-wrap">
-                                <button type="button" class="btn btn-draft" onclick="saveDraft()">
-                                    <i class="bi bi-save"></i> 下書き保存
-                                </button>
-                                <button type="submit" class="btn btn-submit">
-                                    <i class="bi bi-check-circle"></i> 投稿する
-                                </button>
-                            </div>
+                        <div class="d-grid gap-2 mt-5">
+                            <button type="submit" class="btn btn-primary-custom btn-lg">投稿する</button>
+                            <button type="button" class="btn btn-outline-secondary btn-lg" onclick="saveDraft()">下書き保存</button>
                         </div>
                     </form>
-                </div>
-            </div>
-
-            <!-- サイドバー -->
-            <div class="col-lg-4">
-                <div class="info-card">
-                    <h5 class="info-card-title">
-                        <i class="bi bi-lightbulb-fill"></i> 記録のポイント
-                    </h5>
-                    <ul>
-                        <li>毎日の健康状態を記録することで、変化に気づきやすくなります</li>
-                        <li>写真を添付すると、成長の記録が見返しやすくなります</li>
-                        <li>気になることは小さなことでもメモしておきましょう</li>
-                        <li>定期的な体重測定は健康管理に重要です</li>
-                    </ul>
-                </div>
-
-                <div class="info-card">
-                    <h5 class="info-card-title">
-                        <i class="bi bi-bar-chart-line-fill"></i> 今月の記録状況
-                    </h5>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>記録日数</span>
-                            <strong style="color: var(--primary-color);">18日 / 20日</strong>
-                        </div>
-                        <div class="progress" style="height: 10px; border-radius: 10px;">
-                            <div class="progress-bar"
-                                style="width: 90%; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center mt-3">
-                        <p class="mb-0" style="color: var(--brown-color);">
-                            <i class="bi bi-trophy-fill text-warning"></i>
-                            あと2日で目標達成！
-                        </p>
-                    </div>
-                </div>
-
-                <div class="info-card">
-                    <h5 class="info-card-title">
-                        <i class="bi bi-clock-history"></i> 最近の記録
-                    </h5>
-                    <div class="small">
-                        <div class="d-flex justify-content-between mb-2 pb-2"
-                            style="border-bottom: 1px solid rgba(0,0,0,0.1);">
-                            <span>体重測定</span>
-                            <span class="text-muted">11/18</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2 pb-2"
-                            style="border-bottom: 1px solid rgba(0,0,0,0.1);">
-                            <span>定期健診</span>
-                            <span class="text-muted">11/10</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <span>投薬</span>
-                            <span class="text-muted">11/05</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Toast通知 -->
-    <div class="toast-container">
-        <div class="toast toast-custom" id="successToast" role="alert">
-            <div class="toast-header">
-                <i class="bi bi-check-circle-fill me-2"></i>
-                <strong class="me-auto">投稿完了</strong>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <strong class="me-auto"><i class="bi bi-check-circle-fill"></i> 投稿完了</strong>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
             </div>
             <div class="toast-body">
-                <i class="bi bi-party-popper"></i> 飼育記録が正常に投稿されました！
+                口コミを投稿しました！
             </div>
         </div>
 
-        <div class="toast toast-custom" id="draftToast" role="alert">
-            <div class="toast-header" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">
-                <i class="bi bi-save-fill me-2"></i>
-                <strong class="me-auto">下書き保存</strong>
+        <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto"><i class="bi bi-exclamation-circle-fill"></i> エラー</strong>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
             </div>
             <div class="toast-body">
-                <i class="bi bi-bookmark-check"></i> 下書きとして保存されました。後で編集できます。
+                入力内容を確認してください。
             </div>
         </div>
 
-        <div class="toast toast-custom" id="errorToast" role="alert">
-            <div class="toast-header" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                <strong class="me-auto">エラー</strong>
+        <div id="draftToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-info text-white">
+                <strong class="me-auto"><i class="bi bi-save-fill"></i> 保存完了</strong>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
             </div>
             <div class="toast-body">
-                必須項目を入力してください。
+                下書きを保存しました。
             </div>
         </div>
     </div>
 
-    <!-- フッター -->
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <h5 class="fw-bold mb-3">
-                        <i class="bi bi-heart-fill text-danger"></i> PetLife
+                    <h5 class="fw-bold mb-3 text-white">
+                        <i class="bi bi-buildings-fill text-warning"></i> Metropolis Bites
                     </h5>
-                    <p>ペットとの幸せな暮らしを応援する情報サイト</p>
+                    <p>都会の隠れ家グルメガイド。<br>あなただけのお気に入りを見つけてください。</p>
                 </div>
                 <div class="col-md-2 mb-4">
-                    <h6 class="fw-bold mb-3">サイト情報</h6>
+                    <h6 class="fw-bold mb-3 text-white">サイト情報</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">About</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">利用規約</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">プライバシー</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">About</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">利用規約</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">プライバシー</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 mb-4">
-                    <h6 class="fw-bold mb-3">サポート</h6>
+                    <h6 class="fw-bold mb-3 text-white">サポート</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">ヘルプ</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">お問い合わせ</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">ヘルプ</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">お問い合わせ</a></li>
+                        <li><a href="gourmet-qa.html" class="text-decoration-none text-secondary hover-white">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <h6 class="fw-bold mb-3">フォローする</h6>
+                    <h6 class="fw-bold mb-3 text-white">フォローする</h6>
                     <div class="d-flex gap-3">
-                        <a href="#" class="text-white fs-4"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="text-white fs-4"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="text-white fs-4"><i class="bi bi-youtube"></i></a>
-                        <a href="#" class="text-white fs-4"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-secondary fs-4 hover-white"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-secondary fs-4 hover-white"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-secondary fs-4 hover-white"><i class="bi bi-facebook"></i></a>
                     </div>
                 </div>
             </div>
-            <hr class="border-light">
-            <p class="text-center mb-0">&copy; 2024 PetLife. All rights reserved.</p>
+            <hr class="border-secondary">
+            <p class="text-center mb-0 text-secondary">&copy; 2026 Metropolis Bites. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
-

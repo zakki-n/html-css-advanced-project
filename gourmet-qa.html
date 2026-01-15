@@ -1,291 +1,92 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetLife - Q&A・お悩み相談</title>
+    <title>グルメQ&A - Metropolis Bites</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
         .page-header {
-            background: linear-gradient(135deg, #dcfce7 0%, #fed7aa 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
             padding: 60px 0;
             border-radius: 0 0 50px 50px;
             margin-bottom: 40px;
-        }
-
-        .search-box {
-            background: white;
-            border-radius: 50px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 8px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .search-box input {
-            border: none;
-            padding: 12px 20px;
-            border-radius: 50px;
-            width: 100%;
-        }
-
-        .search-box input:focus {
-            outline: none;
-        }
-
-        .search-box button {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border: none;
             color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: bold;
         }
-
-        .category-tabs {
+        
+        .qa-card {
             background: white;
-            border-radius: 30px;
-            padding: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            margin-bottom: 30px;
-        }
-
-        .category-tabs .nav-link {
-            border-radius: 25px;
-            padding: 12px 25px;
-            color: var(--brown-color);
-            font-weight: 600;
-            margin: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .category-tabs .nav-link:hover {
-            background-color: rgba(16, 185, 129, 0.1);
-        }
-
-        .category-tabs .nav-link.active {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white !important;
-        }
-
-        .accordion-item {
-            background: white;
-            border: none;
-            border-radius: 20px !important;
-            margin-bottom: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .accordion-button {
-            background-color: white;
-            color: var(--brown-color);
-            font-weight: 600;
-            font-size: 1.1rem;
-            padding: 20px 25px;
-            border-radius: 20px !important;
-        }
-
-        .accordion-button:not(.collapsed) {
-            background: linear-gradient(135deg, #dcfce7, #fed7aa);
-            color: var(--brown-color);
-            box-shadow: none;
-        }
-
-        .accordion-button:focus {
-            box-shadow: none;
-            border: none;
-        }
-
-        .accordion-button::after {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2378350f'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-        }
-
-        .accordion-body {
+            border-radius: 15px;
             padding: 25px;
-            background-color: #fefefe;
-        }
-
-        .question-meta {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: #6b7280;
-            font-size: 0.9rem;
-        }
-
-        .badge-category {
-            background: var(--secondary-color);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .sidebar-card {
-            background: white;
-            border-radius: 25px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             margin-bottom: 20px;
-        }
-
-        .ranking-item {
-            display: flex;
-            align-items: start;
-            padding: 15px 0;
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .ranking-item:last-child {
-            border-bottom: none;
-        }
-
-        .ranking-number {
-            width: 35px;
-            height: 35px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            flex-shrink: 0;
-            margin-right: 15px;
-        }
-
-        .ranking-number.gold {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-        }
-
-        .ranking-number.silver {
-            background: linear-gradient(135deg, #d1d5db, #9ca3af);
-        }
-
-        .ranking-number.bronze {
-            background: linear-gradient(135deg, #d97706, #92400e);
-        }
-
-        .btn-post-question {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            width: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
             transition: all 0.3s ease;
         }
-
-        .btn-post-question:hover {
+        
+        .qa-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--secondary-color);
         }
 
-        .stats-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--primary-color);
-            padding: 8px 15px;
-            border-radius: 50px;
-            font-weight: 600;
+        .qa-status {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: #e5e7eb;
+            color: #4b5563;
         }
 
-        footer {
-            background-color: var(--brown-color);
-            color: white;
-            padding: 40px 0;
-            margin-top: 80px;
-            border-radius: 50px 50px 0 0;
-        }
-
-        .answer-highlight {
-            background-color: #f0fdf4;
-            border-left: 4px solid var(--primary-color);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-        }
-
-        .helpful-btn {
-            background-color: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .helpful-btn:hover {
-            background-color: var(--primary-color);
-            color: white;
+        .qa-status.solved {
+            background: #d1fae5;
+            color: #059669;
         }
     </style>
 </head>
-
 <body>
+    <!-- ナビゲーションバー -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="bi bi-heart-fill text-danger"></i> PetLife
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-buildings-fill text-warning"></i> Metropolis Bites
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">ホーム</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">ペット図鑑</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">飼い方ガイド</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="#">Q&A</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">飼育記録</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">ホーム</a></li>
+                    <li class="nav-item"><a class="nav-link" href="shop-list.html">店舗一覧</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gourmet-guide.html">グルメコラム</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="gourmet-qa.html">Q&A</a></li>
+                    <li class="nav-item"><a class="nav-link" href="eating-log.html">食べ歩きログ</a></li>
                 </ul>
-                <button class="btn btn-outline-success ms-3 rounded-pill fw-bold">
-                    <i class="bi bi-person-circle"></i> ログイン
-                </button>
+                <a href="login.html" class="btn btn-outline-primary ms-3 fw-bold">ログイン</a>
             </div>
         </div>
     </nav>
 
+    <!-- ページヘッダー -->
     <div class="page-header">
         <div class="container">
-            <div class="text-center mb-4">
-                <h1 class="display-4 fw-bold" style="color: var(--brown-color);">
-                    <i class="bi bi-chat-dots-fill"></i> Q&A・お悩み相談
-                </h1>
-                <p class="lead" style="color: var(--brown-color);">
-                    ペットに関する疑問や悩みを解決しましょう
-                </p>
-            </div>
-
-            <div class="search-box">
-                <div class="d-flex align-items-center">
-                    <input type="text" class="flex-grow-1" placeholder="質問を検索...（例：犬のしつけ、猫の健康）">
-                    <button type="button"><i class="bi bi-search"></i> 検索</button>
+            <h1 class="display-4 fw-bold mb-3"><i class="bi bi-chat-dots"></i> グルメQ&A</h1>
+            <p class="lead" style="color: #bfdbfe;">お店選びやマナーの疑問を解決しよう</p>
+            <div class="row mt-4">
+                <div class="col-md-8">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text bg-white border-end-0 rounded-start">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" class="form-control border-start-0 rounded-end" placeholder="キーワードで質問を検索...">
+                    </div>
                 </div>
-            </div>
-
-            <div class="text-center mt-4">
-                <div class="d-flex justify-content-center gap-3 flex-wrap">
-                    <span class="stats-badge"><i class="bi bi-chat-left-text"></i> 3,245件の質問</span>
-                    <span class="stats-badge"><i class="bi bi-people"></i> 12,890人の回答者</span>
-                    <span class="stats-badge"><i class="bi bi-check-circle"></i> 解決率 94%</span>
+                <div class="col-md-4 mt-3 mt-md-0">
+                    <button class="btn btn-warning w-100 h-100 fw-bold rounded-pill text-white">
+                        <i class="bi bi-pencil-square"></i> 質問する
+                    </button>
                 </div>
             </div>
         </div>
@@ -293,194 +94,148 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
-                <div class="category-tabs">
-                    <ul class="nav nav-pills justify-content-center flex-wrap" id="categoryTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#all" type="button"
-                                role="tab">
-                                <i class="bi bi-grid"></i> すべて
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#dog" type="button"
-                                role="tab">
-                                <i class="bi bi-emoji-smile"></i> 犬
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#cat" type="button"
-                                role="tab">
-                                <i class="bi bi-emoji-heart-eyes"></i> 猫
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#health" type="button"
-                                role="tab">
-                                <i class="bi bi-heart-pulse"></i> 健康
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="all" role="tabpanel">
-                        <div class="accordion" id="faqAccordion">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#faq1">
-                                        <i class="bi bi-question-circle-fill text-primary me-2"></i>
-                                        子犬のトイレトレーニングがうまくいきません
-                                    </button>
-                                </h2>
-                                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        <div class="mb-3">
-                                            <span class="badge-category">犬</span>
-                                            <span class="badge-category" style="background: #8b5cf6;">しつけ</span>
-                                        </div>
-                                        <div class="answer-highlight">
-                                            <h6 class="fw-bold text-success mb-2">
-                                                <i class="bi bi-check-circle-fill"></i> ベストアンサー
-                                            </h6>
-                                            <p>トイレトレーニングは根気が必要です。成功したら褒めること、失敗しても叱らないことが重要です。</p>
-                                        </div>
-                                        <div class="question-meta">
-                                            <div class="meta-item">
-                                                <i class="bi bi-person-circle"></i><span>ドッグトレーナー山田</span>
-                                            </div>
-                                            <div class="meta-item">
-                                                <i class="bi bi-hand-thumbs-up"></i><span>312人が参考になった</span>
-                                            </div>
-                                        </div>
-                                        <div class="mt-3">
-                                            <button class="helpful-btn">
-                                                <i class="bi bi-hand-thumbs-up"></i> 参考になった
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#faq2">
-                                        <i class="bi bi-question-circle-fill text-primary me-2"></i>
-                                        猫が急にご飯を食べなくなりました
-                                    </button>
-                                </h2>
-                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        <div class="mb-3">
-                                            <span class="badge-category" style="background: #fb923c;">猫</span>
-                                            <span class="badge-category" style="background: #ef4444;">健康</span>
-                                        </div>
-                                        <div class="answer-highlight">
-                                            <h6 class="fw-bold text-success mb-2">
-                                                <i class="bi bi-check-circle-fill"></i> ベストアンサー
-                                            </h6>
-                                            <p>24時間以上食事を取らない場合は早めに動物病院を受診してください。</p>
-                                        </div>
-                                        <div class="question-meta">
-                                            <div class="meta-item">
-                                                <i class="bi bi-person-circle"></i><span>獣医師・佐藤</span>
-                                            </div>
-                                            <div class="meta-item">
-                                                <i class="bi bi-hand-thumbs-up"></i><span>487人が参考になった</span>
-                                            </div>
-                                        </div>
-                                        <div class="mt-3">
-                                            <button class="helpful-btn">
-                                                <i class="bi bi-hand-thumbs-up"></i> 参考になった
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="col-lg-3">
+                <div class="list-group mb-4 sticky-top" style="top: 100px; z-index: 0;">
+                    <a href="#" class="list-group-item list-group-item-action active bg-primary border-primary">すべて</a>
+                    <a href="#" class="list-group-item list-group-item-action">お店選び</a>
+                    <a href="#" class="list-group-item list-group-item-action">マナー・服装</a>
+                    <a href="#" class="list-group-item list-group-item-action">メニュー・料理</a>
+                    <a href="#" class="list-group-item list-group-item-action">その他</a>
                 </div>
             </div>
 
-            <div class="col-lg-4">
-                <div class="sidebar-card">
-                    <button class="btn btn-post-question">
-                        <i class="bi bi-plus-circle"></i> 質問を投稿する
-                    </button>
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="fw-bold mb-0 section-title"><i class="bi bi-list-ul"></i> 最新の質問</h4>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            新着順
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">新着順</a></li>
+                            <li><a class="dropdown-item" href="#">回答数順</a></li>
+                            <li><a class="dropdown-item" href="#">閲覧数順</a></li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="sidebar-card">
-                    <h5 class="fw-bold mb-4" style="color: var(--brown-color);">
-                        <i class="bi bi-trophy-fill text-warning"></i> 人気の質問
-                    </h5>
-                    <div class="ranking-item">
-                        <div class="ranking-number gold">1</div>
-                        <div>
-                            <h6 class="fw-bold mb-1 small">子犬のワクチン接種スケジュール</h6>
-                            <small class="text-muted">523人が参考にしました</small>
-                        </div>
+                <!-- 質問カード1 -->
+                <div class="qa-card">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="badge bg-secondary">お店選び</span>
+                        <span class="qa-status solved"><i class="bi bi-check-circle-fill"></i> 解決済み</span>
                     </div>
-                    <div class="ranking-item">
-                        <div class="ranking-number silver">2</div>
+                    <h5 class="fw-bold mb-2"><a href="#" class="text-decoration-none text-dark">結婚記念日におすすめの銀座のレストランを教えてください</a></h5>
+                    <p class="text-muted small mb-3">
+                        来月、結婚5周年を迎えます。予算は二人で3万円くらい、静かで雰囲気の良いお店を探しています。和食かフレンチが希望です。
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center text-muted small">
                         <div>
-                            <h6 class="fw-bold mb-1 small">猫の発情期の対処法</h6>
-                            <small class="text-muted">487人が参考にしました</small>
+                            <span class="me-3"><i class="bi bi-chat-left-text"></i> 回答: 5</span>
+                            <span><i class="bi bi-eye"></i> 120</span>
                         </div>
-                    </div>
-                    <div class="ranking-item">
-                        <div class="ranking-number bronze">3</div>
                         <div>
-                            <h6 class="fw-bold mb-1 small">ハムスターの寿命について</h6>
-                            <small class="text-muted">412人が参考にしました</small>
+                            2024.01.14
                         </div>
                     </div>
                 </div>
+
+                <!-- 質問カード2 -->
+                <div class="qa-card">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="badge bg-secondary">マナー・服装</span>
+                        <span class="qa-status">受付中</span>
+                    </div>
+                    <h5 class="fw-bold mb-2"><a href="#" class="text-decoration-none text-dark">高級ホテルのランチ、男性の服装は？</a></h5>
+                    <p class="text-muted small mb-3">
+                        今度初めて高級ホテルのフレンチランチに行きます。「スマートカジュアル」とありますが、ジャケットは必須でしょうか？ジーンズはNG？
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center text-muted small">
+                        <div>
+                            <span class="me-3"><i class="bi bi-chat-left-text"></i> 回答: 2</span>
+                            <span><i class="bi bi-eye"></i> 85</span>
+                        </div>
+                        <div>
+                            2024.01.13
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 質問カード3 -->
+                <div class="qa-card">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="badge bg-secondary">その他</span>
+                        <span class="qa-status solved"><i class="bi bi-check-circle-fill"></i> 解決済み</span>
+                    </div>
+                    <h5 class="fw-bold mb-2"><a href="#" class="text-decoration-none text-dark">一人でも入りやすいカウンターのあるイタリアン</a></h5>
+                    <p class="text-muted small mb-3">
+                        仕事帰りに一人でふらっと寄れる、美味しいイタリアンを探しています。渋谷・恵比寿周辺で、女性一人でも浮かないお店はありますか？
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center text-muted small">
+                        <div>
+                            <span class="me-3"><i class="bi bi-chat-left-text"></i> 回答: 8</span>
+                            <span><i class="bi bi-eye"></i> 250</span>
+                        </div>
+                        <div>
+                            2024.01.12
+                        </div>
+                    </div>
+                </div>
+
+                <nav aria-label="ページネーション" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled"><a class="page-link rounded-pill" href="#">&laquo;</a></li>
+                        <li class="page-item active"><a class="page-link rounded-pill" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link rounded-pill" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link rounded-pill" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link rounded-pill" href="#">&raquo;</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
 
+    <!-- フッター -->
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <h5 class="fw-bold mb-3">
-                        <i class="bi bi-heart-fill text-danger"></i> PetLife
+                    <h5 class="fw-bold mb-3 text-white">
+                        <i class="bi bi-buildings-fill text-warning"></i> Metropolis Bites
                     </h5>
-                    <p>ペットとの幸せな暮らしを応援する情報サイト</p>
+                    <p>都会の隠れ家グルメガイド。<br>あなただけのお気に入りを見つけてください。</p>
                 </div>
                 <div class="col-md-2 mb-4">
-                    <h6 class="fw-bold mb-3">サイト情報</h6>
+                    <h6 class="fw-bold mb-3 text-white">サイト情報</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">About</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">利用規約</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">About</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">利用規約</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">プライバシー</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2 mb-4">
-                    <h6 class="fw-bold mb-3">サポート</h6>
+                    <h6 class="fw-bold mb-3 text-white">サポート</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">ヘルプ</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">ヘルプ</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary hover-white">お問い合わせ</a></li>
+                        <li><a href="gourmet-qa.html" class="text-decoration-none text-secondary hover-white">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <h6 class="fw-bold mb-3">フォローする</h6>
+                    <h6 class="fw-bold mb-3 text-white">フォローする</h6>
                     <div class="d-flex gap-3">
-                        <a href="#" class="text-white fs-4"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="text-white fs-4"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="text-white fs-4"><i class="bi bi-youtube"></i></a>
-                        <a href="#" class="text-white fs-4"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-secondary fs-4 hover-white"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-secondary fs-4 hover-white"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-secondary fs-4 hover-white"><i class="bi bi-facebook"></i></a>
                     </div>
                 </div>
             </div>
-            <hr class="border-light">
-            <p class="text-center mb-0">&copy; 2024 PetLife. All rights reserved.</p>
+            <hr class="border-secondary">
+            <p class="text-center mb-0 text-secondary">&copy; 2026 Metropolis Bites. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
-

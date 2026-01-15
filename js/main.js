@@ -21,23 +21,25 @@ let selectedFiles = [];
 let tags = [];
 
 document.addEventListener('DOMContentLoaded', function() {
-    // pet-guide-form.html: 気分選択の動作
-    const moodOptions = document.querySelectorAll('.mood-option');
-    if (moodOptions.length > 0) {
-        moodOptions.forEach(option => {
+    // review-form.html: 評価選択の動作
+    const ratingOptions = document.querySelectorAll('.rating-option');
+    if (ratingOptions.length > 0) {
+        ratingOptions.forEach(option => {
             option.addEventListener('click', function () {
-                moodOptions.forEach(opt => opt.classList.remove('active'));
+                ratingOptions.forEach(opt => opt.classList.remove('active'));
                 this.classList.add('active');
+                const selectedRating = document.getElementById('selectedRating');
+                if(selectedRating) selectedRating.value = this.dataset.rating;
             });
         });
 
-        // デモ用初期化 (pet-guide-form.html)
-        const normalMood = document.querySelector('.mood-option[data-mood="normal"]');
-        if (normalMood) {
+        // 初期化 (review-form.html)
+        const defaultRating = document.querySelector('.rating-option[data-rating="5"]');
+        if (defaultRating) {
             setTimeout(() => {
-                normalMood.classList.add('active');
+                defaultRating.click(); // Trigger click to set hidden input
                 setToday();
-            }, 2000);
+            }, 500);
         }
     }
 
@@ -142,9 +144,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const tagContainer = document.getElementById('tagContainer');
                 if (tagContainer) tagContainer.innerHTML = '<input type="text" class="tag-input-field" id="tagInput" placeholder="タグを入力してEnter">';
                 
-                document.querySelectorAll('.mood-option').forEach(opt => opt.classList.remove('active'));
-                const normalMood = document.querySelector('.mood-option[data-mood="normal"]');
-                if (normalMood) normalMood.classList.add('active');
+                document.querySelectorAll('.rating-option').forEach(opt => opt.classList.remove('active'));
+                const defaultRating = document.querySelector('.rating-option[data-rating="5"]');
+                if (defaultRating) defaultRating.click();
                 setToday();
             }, 2000);
         });
