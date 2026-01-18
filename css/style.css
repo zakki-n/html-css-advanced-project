@@ -179,3 +179,225 @@ footer {
     margin-bottom: 5px;
 }
 
+
+/* Page Header */
+.page-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    padding: 60px 0;
+    border-radius: 0 0 50px 50px;
+    margin-bottom: 40px;
+    color: white;
+}
+
+/* Authentication Cards (Login/Signup) */
+.auth-card {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Shop List & Detail */
+.filter-sidebar {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 100px;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.filter-section {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.filter-section:last-child {
+    border-bottom: none;
+}
+
+.form-check-input:checked {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.sort-btn {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    padding: 8px 20px;
+    font-weight: 600;
+}
+
+.carousel-item img {
+    height: 500px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.shop-header {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    margin: -80px 0 30px 0;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.info-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.menu-item {
+    border-bottom: 1px dashed #e5e7eb;
+    padding: 15px 0;
+}
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.review-card {
+    background: #f9fafb;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Gourmet Guide */
+.article-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    height: 100%;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    border-color: var(--primary-color);
+}
+
+.article-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.sidebar-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Q&A */
+.qa-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.qa-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: var(--secondary-color);
+}
+
+.qa-status {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #e5e7eb;
+    color: #4b5563;
+}
+
+.qa-status.solved {
+    background: #d1fae5;
+    color: #059669;
+}
+
+/* Eating Log */
+.log-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.log-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.log-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.filter-btn {
+    border-radius: 20px;
+    padding: 8px 20px;
+    margin-right: 10px;
+    border: 1px solid #e5e7eb;
+    background: white;
+    color: var(--brown-color);
+    transition: all 0.2s;
+}
+
+/* Review Form */
+.form-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.rating-option {
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    transition: all 0.2s;
+    font-weight: bold;
+    color: #d1d5db; /* default gray for stars */
+    font-size: 1.2rem;
+}
+
+.rating-option.active {
+    border-color: var(--secondary-color);
+    background: #fffbeb;
+    color: var(--secondary-color);
+}
+
+.rating-option:hover {
+    border-color: var(--secondary-color);
+}
+
