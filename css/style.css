@@ -201,14 +201,23 @@ footer {
 }
 
 /* Shop List & Detail */
+#shopCarousel .carousel-indicators {
+    bottom: 90px;
+}
+
 .filter-sidebar {
     background: white;
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    position: sticky;
-    top: 100px;
     border: 1px solid rgba(0,0,0,0.05);
+}
+
+@media (min-width: 992px) {
+    .filter-sidebar {
+        position: sticky;
+        top: 100px;
+    }
 }
 
 .filter-section {
